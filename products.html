@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#090a09" />
+  <meta name="description" content="Browse Soundify speakers, microphones, DJ equipment, mixers and event sound accessories available to rent in Bengaluru." />
+  <title>Soundify — Equipment catalogue</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&family=Playfair+Display:ital,wght@1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" id="top">
+    <div class="container nav-wrap">
+      <a class="brand" href="index.html" aria-label="Soundify home"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>Soundify</span></a>
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <a class="active" href="#all-products">Equipment</a>
+        <a href="index.html#events">For events</a>
+        <a href="index.html#packages">Packages</a>
+        <a href="index.html#how-it-works">How it works</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="text-link desktop-only" href="tel:+971544685090">Need help?</a>
+        <button class="cart-trigger" type="button" aria-label="Open rental cart"><span>Cart</span><strong class="cart-count">0</strong></button>
+        <a class="btn btn-small btn-primary desktop-cta" href="index.html#booking">Plan an event</a>
+        <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="mobile-menu" aria-hidden="true">
+      <a href="#all-products">Equipment <span>↓</span></a>
+      <a href="index.html#events">For events <span>↗</span></a>
+      <a href="index.html#packages">Packages <span>↗</span></a>
+      <a href="index.html#how-it-works">How it works <span>↗</span></a>
+      <a href="tel:+971544685090">Call support <span>↗</span></a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="catalog-hero">
+      <div class="catalog-hero-grid" aria-hidden="true"></div>
+      <div class="container catalog-hero-layout">
+        <div class="catalog-hero-copy reveal">
+          <div class="eyebrow"><span class="status-dot"></span> Soundify equipment catalogue</div>
+          <h1>Rent by the day.<br><span>Build it your way.</span></h1>
+          <p>Speakers, microphones, DJ gear, mixers and event essentials with simple day rates and a WhatsApp-first booking flow.</p>
+          <div class="catalog-hero-meta"><span>13 rental items</span><span>5 categories</span><span>Bengaluru delivery</span></div>
+        </div>
+        <div class="catalog-hero-art reveal">
+          <div class="catalog-art-card lime-card"><img src="hero-speaker-left.png" alt="Portable PA speaker" /></div>
+          <div class="catalog-art-card blue-card"><img src="hero-speaker-right.png" alt="Party speaker" /></div>
+          <div class="catalog-art-label"><small>Need help choosing?</small><a href="index.html#packages">See event packages ↗</a></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="catalog-toolbar-section" id="all-products">
+      <div class="container">
+        <div class="catalog-toolbar reveal">
+          <label class="catalog-search">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+            <input id="productSearch" type="search" placeholder="Search speakers, mics, mixers..." aria-label="Search equipment" />
+          </label>
+          <div class="filter-pills" role="group" aria-label="Filter equipment by category">
+            <button class="filter-pill active" type="button" data-filter-btn="all">All gear</button>
+            <button class="filter-pill" type="button" data-filter-btn="speakers">Speakers</button>
+            <button class="filter-pill" type="button" data-filter-btn="microphones">Microphones</button>
+            <button class="filter-pill" type="button" data-filter-btn="dj">DJ gear</button>
+            <button class="filter-pill" type="button" data-filter-btn="mixers">Mixers</button>
+            <button class="filter-pill" type="button" data-filter-btn="accessories">Accessories</button>
+          </div>
+          <div class="catalog-count"><span id="visibleProductCount">13</span> products</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section catalog-products-section">
+      <div class="container">
+        <div class="product-grid all-products-grid" id="productGrid">
+          <article class="product-card reveal" data-category="speakers" data-product="Premium 12” Active PA Speaker" data-price="1499">
+            <div class="product-media media-lime"><span class="stock-pill"><i></i> Available</span><button class="wishlist" type="button" aria-label="Save Premium 12 inch Active PA Speaker">♡</button><img class="product-photo product-photo-tall" src="hero-speaker-left.png" alt="Premium portable PA speaker with microphone" /></div>
+            <div class="product-info"><div class="product-heading"><span class="product-type">Speaker</span><span class="product-rating">4.9 ★</span></div><h3>Premium 12” Active PA Speaker</h3><p>High-output powered speaker for parties, weddings and corporate events.</p><div class="product-meta"><span>Up to 150 guests</span><span>1,000W class</span></div><div class="product-bottom"><div><strong>₹1,499</strong><small>/ day</small></div><button class="add-btn" type="button">Add to cart</button></div></div>
+          </article>
+
+          <article class="product-card reveal" data-category="speakers" data-product="15” High-Power Party Speaker" data-price="1899">
+            <div class="product-media media-blue"><span class="stock-pill"><i></i> Popular</span><button class="wishlist" type="button" aria-label="Save 15 inch High-Power Party Speaker">♡</button><img class="product-photo product-photo-square" src="hero-speaker-right.png" alt="Sony high-power party speaker" /></div>
+            <div class="product-info"><div class="product-heading"><span class="product-type">Speaker</span><span class="product-rating">4.8 ★</span></div><h3>15” High-Power Party Speaker</h3><p>More headroom for larger gatherings and high-energy dance floors.</p><div class="product-meta"><span>Up to 250 guests</span><span>High SPL</span></div><div class="product-bottom"><div><strong>₹1,899</strong><small>/ day</small></div><button class="add-btn" type="button">Add to cart</button></div></div>
+          </article>
+
+          <article class="product-card reveal" data-category="speakers" data-product="18” Active Subwoofer" data-price="2199">
+            <div class="product-media media-charcoal"><span class="stock-pill"><i></i> Available</span><button class="wishlist" type="button" aria-label="Save 18 inch Active Subwoofer">♡</button><div class="product-art sub-art" aria-hidden="true"><div class="sub-cone"></div></div></div>
+            <div class="product-info"><div class="product-heading"><span class="product-type">Subwoofer</span><span class="product-rating">4.8 ★</span></div><h3>18” Active Subwoofer</h3><p>Deep low-end support for dance floors, weddings and DJ events.</p><div class="product-meta"><span>Low-frequency boost</span><span>Powered unit</span></div><div class="product-bottom"><div><strong>₹2,199</strong><small>/ day</small></div><button class="add-btn" type="button">Add to cart</button></div></div>
+          </article>
+
+          <article class="product-card reveal" data-category="microphones" data-product="Dual Wireless Microphone Set" data-price="899">
+            <div class="product-media media-sand"><span class="stock-pill"><i></i> Available</span><button class="wishlist" type="button" aria-label="Save Dual Wireless Microphone Set">♡</button><div class="product-art mic-art" aria-hidden="true"><div class="mic-head"></div><div class="mic-body"></div><div class="mic-two"><div class="mic-head"></div><div class="mic-body"></div></div></div></div>
+            <div class="product-info"><div class="product-heading"><span class="product-type">Microphone</span><span class="product-rating">4.9 ★</span></div><h3>Dual Wireless Microphone Set</h3><p>Reliable wireless vocals for speeches, ceremonies and performances.</p><div class="product-meta"><span>2 handheld mics</span><span>Long-range RF</span></div><div class="product-bottom"><div><strong>₹899</strong><small>/ day</small></div><button class="add-btn" type="button">Add to cart</button></div></div>
+          </article>
+
+          <article class="product-card reveal" data-category="microphones" data-product="Single Wireless Handheld Mic" data-price="499">
+            <div class="product-media media-rose"><span class="stock-pill"><i></i> Available</span><button class="wishlist" type="button" aria-label="Save Single Wireless Handheld Mic">♡</button><div class="product-art single-mic-art" aria-hidden="true"><div class="mic-head"></div><div class="mic-body"></div></div></div>
+            <div class="product-info"><div class="product-heading"><span class="product-type">Microphone</span><span class="product-rating">4.7 ★</span></div><h3>Single Wireless Handheld Mic</h3><p>Simple wireless microphone for announcements, emcees and hosting.</p><div class="product-meta"><span>Single channel</span><span>Easy setup</span></div><div class="product-bottom"><div><strong>₹499</strong><small>/ day</small></div><button class="add-btn" type="button">Add to cart</button></div></div>
+          </article>
+
+          <article class="product-card reveal" data-category="microphones" data-product="Lapel Mic Set" data-price="799">
+            <div class="product-media media-mint"><span class="stock-pill"><i></i> Available</span><button class="wishlist" type="button" aria-label="Save Lapel Mic Set">♡</button><div class="product-art lapel-art" aria-hidden="true"><div class="lapel-pack"></div><div class="lapel-wire"></div><div class="lapel-head"></div></div></div>
+            <div class="product-info"><div class="product-heading"><span class="product-type">Lapel mic</span><span class="product-rating">4.8 ★</span></div><h3>Lapel Mic Set</h3><p>Great for conferences, panels, recordings and presenter use.</p><div class="product-meta"><span>Clip-on mic</span><span>Wireless pack</span></div><div class="product-bottom"><div><strong>₹799</strong><small>/ day</small></div><button class="add-btn" type="button">Add to cart</button></div></div>
+          </article>
+
+          <article class="product-card reveal" data-category="dj" data-product="4-Channel DJ Controller" data-price="2499">
+            <div class="product-media media-violet"><span class="stock-pill"><i></i> Popular</span><button class="wishlist" type="button" aria-label="Save 4-Channel DJ Controller">♡</button><div class="product-art dj-art" aria-hidden="true"><div class="jog left"></div><div class="jog right"></div><div class="deck-lines"></div></div></div>
+            <div class="product-info"><div class="product-heading"><span class="product-type">DJ equipment</span><span class="product-rating">4.8 ★</span></div><h3>4-Channel DJ Controller</h3><p>Club-style control with performance pads and professional mixing.</p><div class="product-meta"><span>4 channels</span><span>Performance FX</span></div><div class="product-bottom"><div><strong>₹2,499</strong><small>/ day</small></div><button class="add-btn" type="button">Add to cart</button></div></div>
+          </article>
+
+          <article class="product-card reveal" data-category="dj" data-product="CDJ Media Player Pair" data-price="3499">
+            <div class="product-media media-cyan"><span class="stock-pill"><i></i> Premium</span><button class="wishlist" type="button" aria-label="Save CDJ Media Player Pair">♡</button><div class="product-art cdj-art" aria-hidden="true"><div class="cdj one"></div><div class="cdj two"></div></div></div>
+            <div class="product-info"><div class="product-heading"><span class="product-type">DJ player</span><span class="product-rating">4.9 ★</span></div><h3>CDJ Media Player Pair</h3><p>Professional playback for club-style sets and premium events.</p><div class="product-meta"><span>2 players</span><span>Pro playback</span></div><div class="product-bottom"><div><strong>₹3,499</strong><small>/ day</small></div><button class="add-btn" type="button">Add to cart</button></div></div>
+          </article>
+
+          <article class="product-card reveal" data-category="mixers" data-product="12-Channel Live Audio Mixer" data-price="1299">
+            <div class="product-media media-peach"><span class="stock-pill"><i></i> Available</span><button class="wishlist" type="button" aria-label="Save 12-Channel Live Audio Mixer">♡</button><div class="product-art mixer-art" aria-hidden="true"><div class="faders"></div><div class="knobs"></div></div></div>
+            <div class="product-info"><div class="product-heading"><span class="product-type">Mixer</span><span class="product-rating">4.8 ★</span></div><h3>12-Channel Live Audio Mixer</h3><p>Flexible live mixer for bands, panels and multi-microphone setups.</p><div class="product-meta"><span>12 channels</span><span>Built-in FX</span></div><div class="product-bottom"><div><strong>₹1,299</strong><small>/ day</small></div><button class="add-btn" type="button">Add to cart</button></div></div>
+          </article>
+
+          <article class="product-card reveal" data-category="mixers" data-product="Digital Rack Mixer" data-price="2899">
+            <div class="product-media media-silver"><span class="stock-pill"><i></i> Available</span><button class="wishlist" type="button" aria-label="Save Digital Rack Mixer">♡</button><div class="product-art rack-art" aria-hidden="true"><div class="rack-screen"></div><div class="rack-ports"></div></div></div>
+            <div class="product-info"><div class="product-heading"><span class="product-type">Digital mixer</span><span class="product-rating">4.9 ★</span></div><h3>Digital Rack Mixer</h3><p>Compact digital control for clean routing and larger event setups.</p><div class="product-meta"><span>Scene recall</span><span>Remote mixing</span></div><div class="product-bottom"><div><strong>₹2,899</strong><small>/ day</small></div><button class="add-btn" type="button">Add to cart</button></div></div>
+          </article>
+
+          <article class="product-card reveal" data-category="accessories" data-product="Stage Monitor Speaker" data-price="999">
+            <div class="product-media media-olive"><span class="stock-pill"><i></i> Available</span><button class="wishlist" type="button" aria-label="Save Stage Monitor Speaker">♡</button><div class="product-art monitor-art" aria-hidden="true"><div class="monitor-cone"></div></div></div>
+            <div class="product-info"><div class="product-heading"><span class="product-type">Monitor</span><span class="product-rating">4.7 ★</span></div><h3>Stage Monitor Speaker</h3><p>Foldback monitoring for singers, performers and live acts.</p><div class="product-meta"><span>Stage use</span><span>Compact wedge</span></div><div class="product-bottom"><div><strong>₹999</strong><small>/ day</small></div><button class="add-btn" type="button">Add to cart</button></div></div>
+          </article>
+
+          <article class="product-card reveal" data-category="accessories" data-product="Speaker Stand Pair" data-price="299">
+            <div class="product-media media-warm"><span class="stock-pill"><i></i> Available</span><button class="wishlist" type="button" aria-label="Save Speaker Stand Pair">♡</button><div class="product-art stand-art" aria-hidden="true"><span></span><span></span></div></div>
+            <div class="product-info"><div class="product-heading"><span class="product-type">Accessory</span><span class="product-rating">4.8 ★</span></div><h3>Speaker Stand Pair</h3><p>Height-adjustable pair for cleaner coverage and safer setups.</p><div class="product-meta"><span>Pair included</span><span>Adjustable</span></div><div class="product-bottom"><div><strong>₹299</strong><small>/ day</small></div><button class="add-btn" type="button">Add to cart</button></div></div>
+          </article>
+
+          <article class="product-card reveal" data-category="accessories" data-product="Cable & DI Box Kit" data-price="399">
+            <div class="product-media media-sky"><span class="stock-pill"><i></i> Available</span><button class="wishlist" type="button" aria-label="Save Cable and DI Box Kit">♡</button><div class="product-art cable-art" aria-hidden="true"><div class="cable-loop"></div><div class="di-box"></div></div></div>
+            <div class="product-info"><div class="product-heading"><span class="product-type">Accessory</span><span class="product-rating">4.8 ★</span></div><h3>Cable & DI Box Kit</h3><p>Essential audio accessories for instruments, playback and setup.</p><div class="product-meta"><span>XLR + jack cables</span><span>DI included</span></div><div class="product-bottom"><div><strong>₹399</strong><small>/ day</small></div><button class="add-btn" type="button">Add to cart</button></div></div>
+          </article>
+        </div>
+
+        <div class="no-products" id="noProducts" hidden><strong>No equipment matches that search.</strong><p>Try another keyword or reset the category filter.</p><button type="button" id="resetFilters" class="btn btn-dark">Show all gear</button></div>
+      </div>
+    </section>
+
+    <section class="catalog-help-section">
+      <div class="container catalog-help reveal">
+        <div><span class="kicker dark">Not sure what works together?</span><h2>Start with the event,<br>not the equipment list.</h2></div>
+        <div><p>Use a complete Soundify package when you want a faster starting point for a party, wedding or corporate event.</p><a class="btn btn-dark" href="index.html#packages">See event packages <span>→</span></a></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-main">
+      <div class="footer-brand-block"><a class="brand footer-brand" href="index.html"><span class="brand-mark"><i></i><i></i><i></i></span><span>Soundify</span></a><p>Professional sound equipment rental for events across Bengaluru.</p><div class="footer-signal"><span></span><small>Now serving Bengaluru</small></div></div>
+      <div class="footer-col"><strong>Explore</strong><a href="#all-products">All equipment</a><a href="index.html#events">For events</a><a href="index.html#packages">Packages</a><a href="index.html#how-it-works">How it works</a></div>
+      <div class="footer-col"><strong>Support</strong><a href="tel:+971544685090">Call us</a><a href="mailto:hello@soundify.in">hello@soundify.in</a><a href="#">Rental terms</a><a href="https://wa.me/971544685090" target="_blank" rel="noopener">WhatsApp</a></div>
+      <div class="footer-col"><strong>Service area</strong><p>Bengaluru, Karnataka<br>More cities coming soon.</p></div>
+    </div>
+    <div class="container footer-bottom"><span>© 2026 Soundify. All rights reserved.</span><span>Sound · events · Bengaluru</span></div>
+  </footer>
+
+  <div class="cart-backdrop" aria-hidden="true"></div>
+  <aside class="cart-drawer" aria-hidden="true" aria-label="Rental cart">
+    <div class="cart-drawer-head"><div><span class="kicker dark">Your rental</span><h2>Review your cart</h2></div><button class="icon-button cart-close" type="button" aria-label="Close cart">×</button></div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-empty" id="cartEmpty"><span class="empty-icon">＋</span><strong>Your cart is empty.</strong><p>Add equipment and it will appear here.</p><a href="#all-products">Browse equipment →</a></div>
+    <div class="cart-drawer-foot"><div class="cart-total-row"><span>Equipment total</span><strong id="cartTotal">₹0</strong></div><small>Delivery, setup and refundable deposit are confirmed before the booking is final.</small><button class="btn btn-dark btn-cart-checkout" id="startCheckout" type="button">Continue to booking <span>→</span></button></div>
+  </aside>
+
+  <div class="checkout-modal" id="checkoutModal" aria-hidden="true">
+    <div class="checkout-dialog" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle">
+      <button class="icon-button checkout-close" type="button" aria-label="Close booking">×</button>
+      <div class="checkout-intro"><span class="kicker dark">Booking request</span><h2 id="checkoutTitle">Almost yours.</h2><p>Add your event details, choose a payment option, then send the complete request to Soundify on WhatsApp.</p></div>
+      <div class="checkout-layout">
+        <form class="customer-form" id="customerForm">
+          <div class="form-section-title"><span>01</span><strong>Event & customer details</strong></div>
+          <div class="form-grid">
+            <label><span>Full name *</span><input id="customerName" name="name" type="text" autocomplete="name" required placeholder="Your full name"></label>
+            <label><span>Phone number *</span><input id="customerPhone" name="phone" type="tel" autocomplete="tel" required placeholder="+91 98765 43210"></label>
+            <label class="full-field"><span>Email address *</span><input id="customerEmail" name="email" type="email" autocomplete="email" required placeholder="you@example.com"></label>
+            <label><span>Event date *</span><input id="checkoutDate" name="eventDate" type="date" required></label>
+            <label><span>Rental days *</span><input id="rentalDays" name="rentalDays" type="number" min="1" max="30" value="1" required></label>
+            <label class="full-field"><span>Delivery address *</span><textarea id="deliveryAddress" name="deliveryAddress" required placeholder="Venue, street, area, Bengaluru, PIN code"></textarea></label>
+            <label class="full-field"><span>Google Maps link *</span><input id="exactLocation" name="exactLocation" type="url" required placeholder="https://maps.google.com/..."></label>
+          </div>
+          <div class="form-section-title payment-title"><span>02</span><strong>Payment option</strong></div>
+          <div class="payment-options">
+            <label class="payment-card selected"><input type="radio" name="payment" value="UPI / Google Pay" checked><div><strong>UPI / Google Pay</strong><small>Pay from any UPI app or scan the QR code.</small></div><span class="payment-radio"></span></label>
+            <label class="payment-card"><input type="radio" name="payment" value="Razorpay"><div><strong>Razorpay</strong><small>Pay by UPI, card, netbanking or wallet.</small></div><span class="payment-radio"></span></label>
+          </div>
+          <div class="payment-panel" id="upiPanel"><div class="qr-box" id="upiQr"><span>UPI QR</span></div><div class="payment-panel-copy"><span class="payment-label">Amount to pay</span><strong id="paymentAmount">₹0</strong><small>UPI ID: <b id="upiIdLabel">REPLACE_WITH_UPI_ID</b></small><a class="btn btn-dark" id="upiPayLink" href="#">Open UPI / GPay</a></div></div>
+          <div class="payment-panel hidden" id="razorpayPanel"><div class="razorpay-mark">R</div><div class="payment-panel-copy"><span class="payment-label">Amount to pay</span><strong id="razorpayAmount">₹0</strong><small>Secure checkout opens in Razorpay.</small><button class="btn btn-dark" id="razorpayPay" type="button">Pay with Razorpay</button></div></div>
+          <label class="check-row"><input id="paymentCompleted" type="checkbox"><span>I have completed the payment</span></label>
+          <label class="check-row"><input id="bookingTerms" type="checkbox" required><span>I understand the booking is confirmed only after Soundify verifies availability, payment and delivery details.</span></label>
+          <button class="whatsapp-book-btn" type="submit"><span class="wa-dot">WA</span><span><strong>Send booking on WhatsApp</strong><small>Cart + event details + payment status</small></span><b>→</b></button>
+        </form>
+        <aside class="checkout-summary"><div class="summary-head"><span>Order summary</span><strong id="summaryCount">0 items</strong></div><div id="checkoutItems" class="checkout-items"></div><div class="summary-total"><span>Equipment total</span><strong id="checkoutTotal">₹0</strong></div><div class="manual-confirm-note"><span>✓</span><p><strong>Manual confirmation</strong>Your request goes to WhatsApp. Soundify verifies stock, payment and delivery before the booking is final.</p></div></aside>
+      </div>
+    </div>
+  </div>
+
+  <div class="sticky-cart" id="stickyCart" aria-hidden="true"><button type="button" class="sticky-cart-btn"><span><b id="stickyCartCount">0 items</b><small id="stickyCartTotal">₹0</small></span><strong>Review cart →</strong></button></div>
+  <div class="toast" role="status" aria-live="polite"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
