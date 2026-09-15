@@ -11,6 +11,15 @@ const menuToggle = document.querySelector('.menu-toggle');
 const mobileMenu = document.querySelector('.mobile-menu');
 const toast = document.querySelector('.toast');
 const dateInput = document.querySelector('#dateInput');
+const datePickerTrigger = document.querySelector('#datePickerTrigger');
+const datePickerPopover = document.querySelector('#datePickerPopover');
+const dateDisplay = document.querySelector('#dateDisplay');
+const datePickerMonth = document.querySelector('#datePickerMonth');
+const datePickerGrid = document.querySelector('#datePickerGrid');
+const datePickerPrev = document.querySelector('#datePickerPrev');
+const datePickerNext = document.querySelector('#datePickerNext');
+const datePickerToday = document.querySelector('#datePickerToday');
+const datePickerClear = document.querySelector('#datePickerClear');
 const bookingForm = document.querySelector('#booking .hero-search, form.hero-search');
 const checkoutDate = document.querySelector('#checkoutDate');
 const rentalDaysInput = document.querySelector('#rentalDays');
@@ -46,6 +55,112 @@ function todayString() {
   const mm = String(today.getMonth() + 1).padStart(2, '0');
   const dd = String(today.getDate()).padStart(2, '0');
   return `${yyyy}-${mm}-${dd}`;
+}
+
+
+let datePickerView = new Date();
+datePickerView = new Date(datePickerView.getFullYear(), datePickerView.getMonth(), 1);
+
+function localIsoDate(date) {
+  const yyyy = date.getFullYear();
+  const mm = String(date.getMonth() + 1).padStart(2, '0');
+  const dd = String(date.getDate()).padStart(2, '0');
+  return `${yyyy}-${mm}-${dd}`;
+}
+
+function parseIsoDate(value) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(value || '')) return null;
+  const [year, month, day] = value.split('-').map(Number);
+  const date = new Date(year, month - 1, day);
+  return Number.isNaN(date.getTime()) ? null : date;
+}
+
+function formatHeroDate(value) {
+  const date = parseIsoDate(value);
+  if (!date) return 'Choose a date';
+  return new Intl.DateTimeFormat('en-IN', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric'
+  }).format(date);
+}
+
+function syncHeroDateDisplay() {
+  if (!dateDisplay || !datePickerTrigger) return;
+  const hasValue = Boolean(dateInput?.value);
+  dateDisplay.textContent = hasValue ? formatHeroDate(dateInput.value) : 'Choose a date';
+  datePickerTrigger.classList.toggle('is-empty', !hasValue);
+}
+
+function renderHeroDatePicker() {
+  if (!datePickerGrid || !datePickerMonth) return;
+
+  const year = datePickerView.getFullYear();
+  const month = datePickerView.getMonth();
+  datePickerMonth.textContent = new Intl.DateTimeFormat('en-IN', {
+    month: 'long',
+    year: 'numeric'
+  }).format(datePickerView);
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const currentMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+  if (datePickerPrev) datePickerPrev.disabled = datePickerView <= currentMonth;
+
+  const first = new Date(year, month, 1);
+  const mondayOffset = (first.getDay() + 6) % 7;
+  const gridStart = new Date(year, month, 1 - mondayOffset);
+  const selected = dateInput?.value || '';
+  const todayIso = localIsoDate(today);
+
+  datePickerGrid.innerHTML = '';
+  for (let index = 0; index < 42; index += 1) {
+    const day = new Date(gridStart);
+    day.setDate(gridStart.getDate() + index);
+    day.setHours(0, 0, 0, 0);
+    const iso = localIsoDate(day);
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'date-day';
+    button.textContent = String(day.getDate());
+    button.dataset.date = iso;
+    button.setAttribute('aria-label', new Intl.DateTimeFormat('en-IN', {
+      weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
+    }).format(day));
+    if (day.getMonth() !== month) button.classList.add('is-outside');
+    if (iso === todayIso) button.classList.add('is-today');
+    if (iso === selected) {
+      button.classList.add('is-selected');
+      button.setAttribute('aria-pressed', 'true');
+    }
+    if (day < today) button.disabled = true;
+    datePickerGrid.appendChild(button);
+  }
+}
+
+function openHeroDatePicker() {
+  if (!datePickerPopover || !datePickerTrigger) return;
+  const selected = parseIsoDate(dateInput?.value || '');
+  const baseDate = selected || new Date();
+  datePickerView = new Date(baseDate.getFullYear(), baseDate.getMonth(), 1);
+  renderHeroDatePicker();
+  datePickerPopover.hidden = false;
+  datePickerTrigger.setAttribute('aria-expanded', 'true');
+}
+
+function closeHeroDatePicker({ restoreFocus = false } = {}) {
+  if (!datePickerPopover || !datePickerTrigger) return;
+  datePickerPopover.hidden = true;
+  datePickerTrigger.setAttribute('aria-expanded', 'false');
+  if (restoreFocus) datePickerTrigger.focus();
+}
+
+function setHeroDate(value) {
+  if (!dateInput) return;
+  dateInput.value = value;
+  syncHeroDateDisplay();
+  if (checkoutDate) checkoutDate.value = value;
+  renderHeroDatePicker();
 }
 
 function showToast(message) {
@@ -395,8 +510,50 @@ function closeMobileMenu() {
 }
 
 // Dates
-if (dateInput) dateInput.min = todayString();
 if (checkoutDate) checkoutDate.min = todayString();
+syncHeroDateDisplay();
+
+// Hero date picker
+if (datePickerTrigger && datePickerPopover) {
+  datePickerTrigger.addEventListener('click', () => {
+    const isOpen = !datePickerPopover.hidden;
+    if (isOpen) closeHeroDatePicker();
+    else openHeroDatePicker();
+  });
+
+  datePickerPrev?.addEventListener('click', () => {
+    datePickerView = new Date(datePickerView.getFullYear(), datePickerView.getMonth() - 1, 1);
+    renderHeroDatePicker();
+  });
+
+  datePickerNext?.addEventListener('click', () => {
+    datePickerView = new Date(datePickerView.getFullYear(), datePickerView.getMonth() + 1, 1);
+    renderHeroDatePicker();
+  });
+
+  datePickerGrid?.addEventListener('click', event => {
+    const button = event.target.closest('.date-day[data-date]');
+    if (!button || button.disabled) return;
+    setHeroDate(button.dataset.date);
+    closeHeroDatePicker({ restoreFocus: true });
+  });
+
+  datePickerToday?.addEventListener('click', () => {
+    setHeroDate(todayString());
+    closeHeroDatePicker({ restoreFocus: true });
+  });
+
+  datePickerClear?.addEventListener('click', () => {
+    setHeroDate('');
+    closeHeroDatePicker({ restoreFocus: true });
+  });
+
+  document.addEventListener('click', event => {
+    if (datePickerPopover.hidden) return;
+    const dateField = datePickerTrigger.closest('.date-field');
+    if (!dateField?.contains(event.target)) closeHeroDatePicker();
+  });
+}
 
 // Navigation
 menuToggle?.addEventListener('click', () => {
@@ -411,7 +568,8 @@ bookingForm?.addEventListener('submit', event => {
   event.preventDefault();
   if (!dateInput?.value) {
     showToast('Choose your event date first.');
-    dateInput?.focus();
+    datePickerTrigger?.focus();
+    openHeroDatePicker();
     return;
   }
   if (checkoutDate) checkoutDate.value = dateInput.value;
@@ -517,7 +675,8 @@ customerForm?.addEventListener('submit', event => {
 // Keyboard escape
 window.addEventListener('keydown', event => {
   if (event.key !== 'Escape') return;
-  if (checkoutModal?.classList.contains('open')) closeCheckout();
+  if (datePickerPopover && !datePickerPopover.hidden) closeHeroDatePicker({ restoreFocus: true });
+  else if (checkoutModal?.classList.contains('open')) closeCheckout();
   else if (cartDrawer?.classList.contains('open')) closeCart();
   else if (body.classList.contains('menu-open')) closeMobileMenu();
 });

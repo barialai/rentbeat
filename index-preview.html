@@ -77,13 +77,33 @@
               </span>
             </label>
 
-            <label class="search-field">
+            <div class="search-field date-field">
               <span class="field-label">Event date</span>
               <span class="field-row date-row">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2v3m10-3v3M4 9h16M5 4h14a1 1 0 0 1 1 1v15H4V5a1 1 0 0 1 1-1Z"/></svg>
-                <input id="dateInput" type="date" aria-label="Event date" />
+                <svg class="date-leading-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2v3m10-3v3M4 9h16M5 4h14a1 1 0 0 1 1 1v15H4V5a1 1 0 0 1 1-1Z"/></svg>
+                <button class="date-picker-trigger" id="datePickerTrigger" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="datePickerPopover">
+                  <span id="dateDisplay">Choose a date</span>
+                  <svg class="date-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5"/></svg>
+                </button>
+                <input id="dateInput" type="hidden" name="eventDate" />
               </span>
-            </label>
+
+              <div class="date-picker-popover" id="datePickerPopover" role="dialog" aria-modal="false" aria-label="Choose event date" hidden>
+                <div class="date-picker-head">
+                  <button class="date-nav-btn" id="datePickerPrev" type="button" aria-label="Previous month">←</button>
+                  <strong id="datePickerMonth"></strong>
+                  <button class="date-nav-btn" id="datePickerNext" type="button" aria-label="Next month">→</button>
+                </div>
+                <div class="date-weekdays" aria-hidden="true">
+                  <span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span><span>Su</span>
+                </div>
+                <div class="date-grid" id="datePickerGrid"></div>
+                <div class="date-picker-actions">
+                  <button id="datePickerToday" type="button">Today</button>
+                  <button id="datePickerClear" type="button">Clear</button>
+                </div>
+              </div>
+            </div>
 
             <button class="search-submit" type="submit" aria-label="Find equipment">
               <span>Find equipment</span>
