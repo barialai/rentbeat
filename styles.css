@@ -234,12 +234,12 @@ select{appearance:none}
 .hero-search-centered{
   position:relative;
   z-index:5;
-  width:min(720px,100%);
+  width:min(810px,calc(100% - 24px));
   min-height:88px;
   margin:0 auto;
   padding:8px;
   display:grid;
-  grid-template-columns:minmax(0,1fr) minmax(0,1fr) 220px;
+  grid-template-columns:minmax(220px,1.08fr) minmax(205px,.96fr) 230px;
   align-items:stretch;
   overflow:hidden;
   border:1px solid rgba(255,255,255,.105);
@@ -250,7 +250,7 @@ select{appearance:none}
 }
 .hero-search-centered .search-field{
   min-width:0;
-  padding:13px 24px;
+  padding:13px 28px;
   display:flex;
   flex-direction:column;
   justify-content:center;
@@ -294,13 +294,27 @@ select{appearance:none}
   line-height:28px;
   color-scheme:dark;
 }
-.hero-search-centered .date-row input{padding-right:2px}
+.hero-search-centered .date-row{position:relative}
+.hero-search-centered .date-row input{
+  position:relative;
+  padding-right:0;
+}
+/* Hide the browser's duplicate calendar glyph. The custom white icon on the left remains visible. */
 .hero-search-centered input[type="date"]::-webkit-calendar-picker-indicator{
-  margin-left:10px;
-  padding:2px;
-  opacity:.72;
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  margin:0;
+  padding:0;
+  opacity:0;
   cursor:pointer;
-  filter:invert(1);
+}
+.hero-search-centered input[type="date"]::-webkit-datetime-edit{
+  padding:0;
+}
+.hero-search-centered input[type="date"]::-webkit-datetime-edit-fields-wrapper{
+  padding:0;
 }
 .hero-search-centered .search-submit{
   min-width:0;
@@ -384,7 +398,7 @@ select{appearance:none}
   .hero-landing-redesign .hero-centered-title{font-size:clamp(54px,6vw,72px)}
   .hero-product-left{width:145px;left:16px}
   .hero-product-right{width:140px;right:16px}
-  .hero-search-centered{width:min(690px,100%);grid-template-columns:minmax(0,1fr) minmax(0,1fr) 205px}
+  .hero-search-centered{width:min(760px,calc(100% - 24px));grid-template-columns:minmax(205px,1.06fr) minmax(195px,.94fr) 215px}
 }
 @media(max-width:900px){
   .hero-landing-redesign{min-height:auto}
@@ -399,6 +413,8 @@ select{appearance:none}
   .hero-tag-group{justify-content:center;grid-column:1/-1}
   .hero-proof-copy{text-align:center;grid-column:1/-1}
   .hero-stat{text-align:center}
+  .hero-search-centered{width:min(720px,calc(100% - 20px));grid-template-columns:minmax(190px,1.05fr) minmax(185px,.95fr) 205px}
+  .hero-search-centered .search-field{padding-left:22px;padding-right:22px}
 }
 @media(max-width:760px){
   .hero-landing-redesign .hero-shell{padding:64px 16px 54px}
