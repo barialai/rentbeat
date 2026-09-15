@@ -20,6 +20,11 @@ const datePickerPrev = document.querySelector('#datePickerPrev');
 const datePickerNext = document.querySelector('#datePickerNext');
 const datePickerToday = document.querySelector('#datePickerToday');
 const datePickerClear = document.querySelector('#datePickerClear');
+const locationInput = document.querySelector('#locationInput');
+const locationDisplay = document.querySelector('#locationDisplay');
+const locationPickerTrigger = document.querySelector('#locationPickerTrigger');
+const locationPickerModal = document.querySelector('#locationPickerModal');
+const locationPickerDialog = locationPickerModal?.querySelector('.location-picker-dialog');
 const bookingForm = document.querySelector('#booking .hero-search, form.hero-search');
 const checkoutDate = document.querySelector('#checkoutDate');
 const rentalDaysInput = document.querySelector('#rentalDays');
@@ -153,6 +158,35 @@ function closeHeroDatePicker({ restoreFocus = false } = {}) {
   datePickerPopover.hidden = true;
   datePickerTrigger.setAttribute('aria-expanded', 'false');
   if (restoreFocus) datePickerTrigger.focus();
+}
+
+function openLocationPicker() {
+  if (!locationPickerModal || !locationPickerTrigger) return;
+  lastFocusedElement = document.activeElement;
+  locationPickerModal.classList.add('open');
+  locationPickerModal.setAttribute('aria-hidden', 'false');
+  locationPickerTrigger.setAttribute('aria-expanded', 'true');
+  body.classList.add('location-picker-open');
+  window.setTimeout(() => locationPickerDialog?.querySelector('[data-city="Bengaluru"]')?.focus(), 40);
+}
+
+function closeLocationPicker({ restoreFocus = true } = {}) {
+  if (!locationPickerModal || !locationPickerTrigger) return;
+  locationPickerModal.classList.remove('open');
+  locationPickerModal.setAttribute('aria-hidden', 'true');
+  locationPickerTrigger.setAttribute('aria-expanded', 'false');
+  body.classList.remove('location-picker-open');
+  if (restoreFocus) (lastFocusedElement || locationPickerTrigger).focus?.();
+}
+
+function selectLocation(city) {
+  if (city !== 'Bengaluru') {
+    showToast(`${city} is coming soon. Soundify is currently available in Bengaluru.`);
+    return;
+  }
+  if (locationInput) locationInput.value = city;
+  if (locationDisplay) locationDisplay.textContent = city;
+  closeLocationPicker();
 }
 
 function setHeroDate(value) {
@@ -555,6 +589,21 @@ if (datePickerTrigger && datePickerPopover) {
   });
 }
 
+// Hero location picker
+if (locationPickerTrigger && locationPickerModal) {
+  locationPickerTrigger.addEventListener('click', openLocationPicker);
+  locationPickerModal.querySelectorAll('[data-location-close]').forEach(el => {
+    el.addEventListener('click', () => closeLocationPicker());
+  });
+  locationPickerModal.querySelectorAll('[data-city]').forEach(button => {
+    button.addEventListener('click', () => {
+      if (button.disabled) return;
+      selectLocation(button.dataset.city || 'Bengaluru');
+    });
+  });
+}
+locationPickerDialog?.addEventListener('keydown', event => trapFocus(event, locationPickerDialog));
+
 // Navigation
 menuToggle?.addEventListener('click', () => {
   const open = body.classList.toggle('menu-open');
@@ -675,7 +724,8 @@ customerForm?.addEventListener('submit', event => {
 // Keyboard escape
 window.addEventListener('keydown', event => {
   if (event.key !== 'Escape') return;
-  if (datePickerPopover && !datePickerPopover.hidden) closeHeroDatePicker({ restoreFocus: true });
+  if (locationPickerModal?.classList.contains('open')) closeLocationPicker();
+  else if (datePickerPopover && !datePickerPopover.hidden) closeHeroDatePicker({ restoreFocus: true });
   else if (checkoutModal?.classList.contains('open')) closeCheckout();
   else if (cartDrawer?.classList.contains('open')) closeCart();
   else if (body.classList.contains('menu-open')) closeMobileMenu();

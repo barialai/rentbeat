@@ -604,3 +604,234 @@ select{appearance:none}
   .date-picker-popover{padding:13px;border-radius:17px}
   .date-day{min-height:34px}
 }
+
+/* Location picker */
+body.location-picker-open{overflow:hidden}
+.hero-search-centered .location-row{position:static}
+.hero-search-centered .location-picker-trigger{
+  width:100%;
+  min-width:0;
+  height:28px;
+  padding:0;
+  border:0;
+  background:transparent;
+  color:#f4f5f0;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  font:800 15px/28px "DM Sans",sans-serif;
+  text-align:left;
+  cursor:pointer;
+}
+.hero-search-centered .location-picker-trigger #locationDisplay{
+  min-width:0;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+}
+.hero-search-centered .location-chevron{
+  width:16px;
+  height:16px;
+  flex:0 0 16px;
+  fill:none;
+  stroke:rgba(255,255,255,.5);
+  stroke-width:1.8;
+  transition:transform .18s ease,stroke .18s ease;
+}
+.hero-search-centered .location-picker-trigger[aria-expanded="true"] .location-chevron{
+  transform:rotate(180deg);
+  stroke:var(--accent);
+}
+.hero-search-centered .location-picker-trigger:focus-visible{
+  outline:2px solid rgba(201,255,61,.78);
+  outline-offset:5px;
+  border-radius:4px;
+}
+.location-picker-modal{
+  position:fixed;
+  inset:0;
+  z-index:200;
+  display:grid;
+  place-items:center;
+  padding:24px;
+  opacity:0;
+  visibility:hidden;
+  transition:opacity .2s ease,visibility .2s ease;
+}
+.location-picker-modal.open{opacity:1;visibility:visible}
+.location-picker-backdrop{
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,.68);
+  backdrop-filter:blur(8px);
+}
+.location-picker-dialog{
+  position:relative;
+  z-index:1;
+  width:min(760px,100%);
+  max-height:min(760px,calc(100vh - 48px));
+  overflow:auto;
+  padding:34px;
+  border:1px solid #dfdfd7;
+  border-radius:28px;
+  background:#f7f7f2;
+  color:#11130f;
+  box-shadow:0 38px 110px rgba(0,0,0,.48);
+  transform:translateY(14px) scale(.985);
+  transition:transform .22s ease;
+}
+.location-picker-modal.open .location-picker-dialog{transform:none}
+.location-picker-close{
+  position:absolute;
+  top:18px;
+  right:18px;
+  width:42px;
+  height:42px;
+  border:1px solid #d6d7d0;
+  border-radius:50%;
+  background:#fff;
+  color:#11130f;
+  display:grid;
+  place-items:center;
+  font-size:24px;
+  line-height:1;
+  cursor:pointer;
+  transition:.18s ease;
+}
+.location-picker-close:hover{background:#11130f;color:#fff;border-color:#11130f}
+.location-picker-heading{text-align:center;padding:4px 54px 8px}
+.location-picker-heading .kicker{color:#777b73}
+.location-picker-heading h2{
+  margin:9px 0 10px;
+  font:800 clamp(32px,4vw,46px)/1 "Manrope",sans-serif;
+  letter-spacing:-2px;
+}
+.location-picker-heading p{
+  max-width:520px;
+  margin:0 auto;
+  color:#70736c;
+  font-size:14px;
+  line-height:1.55;
+}
+.location-group{margin-top:26px}
+.location-divider{
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:center;
+  gap:14px;
+  color:#777b73;
+  font-size:12px;
+  font-weight:700;
+}
+.location-divider::before,.location-divider::after{content:"";height:1px;background:#d9dad3}
+.popular-city-grid{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:10px;
+  margin-top:16px;
+}
+.city-card{
+  min-width:0;
+  min-height:132px;
+  padding:14px 8px 12px;
+  border:1px solid #d9dad3;
+  border-radius:18px;
+  background:#fff;
+  color:#181a17;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  cursor:pointer;
+  transition:border-color .18s ease,background .18s ease,transform .18s ease,box-shadow .18s ease;
+}
+.city-card:not(:disabled):hover{transform:translateY(-2px);border-color:#b6d82e;box-shadow:0 12px 25px rgba(0,0,0,.06)}
+.city-icon{
+  width:46px;
+  height:46px;
+  border-radius:14px;
+  display:grid;
+  place-items:center;
+  background:#f0f1eb;
+  color:#777b73;
+  font:800 11px/1 "Manrope",sans-serif;
+  letter-spacing:.5px;
+}
+.city-card strong{font:700 13px/1.15 "DM Sans",sans-serif}
+.city-card small{font-size:9px;color:#9a9d96;line-height:1.1}
+.city-card.selected{
+  border-color:#9bc400;
+  background:#f0ffc2;
+  box-shadow:inset 0 0 0 1px rgba(155,196,0,.15);
+}
+.city-card.selected .city-icon{background:var(--accent);color:#10120e}
+.city-card.selected small{color:#5d720d;font-weight:800}
+.city-card.coming-soon{opacity:.62;cursor:not-allowed}
+.other-location-group{margin-top:24px}
+.other-city-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin-top:16px;
+}
+.other-city-grid button{
+  min-height:54px;
+  padding:8px 12px;
+  border:1px solid #d9dad3;
+  border-radius:15px;
+  background:#fff;
+  color:#4d5049;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  text-align:left;
+  cursor:not-allowed;
+  opacity:.7;
+}
+.other-city-grid button span{font-size:12px;font-weight:700}
+.other-city-grid button small{font-size:8px;color:#9a9d96;text-transform:uppercase;letter-spacing:.5px}
+.location-picker-foot{
+  margin-top:24px;
+  min-height:58px;
+  padding:13px 16px;
+  border:1px solid #dce3c0;
+  border-radius:16px;
+  background:#f2f9d9;
+  display:flex;
+  align-items:center;
+  gap:11px;
+}
+.location-availability-dot{
+  width:10px;
+  height:10px;
+  flex:0 0 10px;
+  border-radius:50%;
+  background:#8cb200;
+  box-shadow:0 0 0 5px rgba(140,178,0,.11);
+}
+.location-picker-foot p{margin:0;color:#60664f;font-size:12px;line-height:1.45}
+.location-picker-foot strong{color:#293000}
+
+@media (max-width:760px){
+  .location-picker-modal{padding:12px;align-items:end}
+  .location-picker-dialog{
+    width:100%;
+    max-height:88vh;
+    padding:26px 18px 20px;
+    border-radius:26px 26px 20px 20px;
+  }
+  .location-picker-heading{padding:4px 36px 4px}
+  .location-picker-heading h2{font-size:32px;letter-spacing:-1.5px}
+  .popular-city-grid{grid-template-columns:repeat(3,1fr)}
+  .city-card{min-height:112px}
+  .other-city-grid{grid-template-columns:repeat(2,1fr)}
+  .other-city-grid button{align-items:flex-start;flex-direction:column;justify-content:center}
+}
+
+@media (max-width:430px){
+  .popular-city-grid{grid-template-columns:repeat(2,1fr)}
+  .location-picker-dialog{padding-left:14px;padding-right:14px}
+}

@@ -69,13 +69,17 @@
           <p>Rent speakers, microphones, DJ gear and complete event sound systems — delivered, installed and ready for your event.</p>
 
           <form class="hero-search hero-search-centered" id="booking" aria-label="Find equipment for your event">
-            <label class="search-field">
+            <div class="search-field location-field">
               <span class="field-label">Event location</span>
-              <span class="field-row">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-5.2 7-12A7 7 0 1 0 5 9c0 6.8 7 12 7 12Zm0-9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5Z"/></svg>
-                <input id="locationInput" type="text" value="Bengaluru" aria-label="Event location" />
+              <span class="field-row location-row">
+                <svg class="location-leading-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-5.2 7-12A7 7 0 1 0 5 9c0 6.8 7 12 7 12Zm0-9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5Z"/></svg>
+                <button class="location-picker-trigger" id="locationPickerTrigger" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="locationPickerModal">
+                  <span id="locationDisplay">Bengaluru</span>
+                  <svg class="location-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5"/></svg>
+                </button>
+                <input id="locationInput" type="hidden" name="eventLocation" value="Bengaluru" />
               </span>
-            </label>
+            </div>
 
             <div class="search-field date-field">
               <span class="field-label">Event date</span>
@@ -137,6 +141,46 @@
         </div>
       </div>
     </section>
+
+    <div class="location-picker-modal" id="locationPickerModal" aria-hidden="true">
+      <div class="location-picker-backdrop" data-location-close></div>
+      <section class="location-picker-dialog" role="dialog" aria-modal="true" aria-labelledby="locationPickerTitle">
+        <button class="location-picker-close" type="button" data-location-close aria-label="Close city picker">×</button>
+        <div class="location-picker-heading">
+          <span class="kicker">Service area</span>
+          <h2 id="locationPickerTitle">Select your city</h2>
+          <p>Soundify is currently available in Bengaluru. More cities are coming soon.</p>
+        </div>
+
+        <div class="location-group">
+          <div class="location-divider"><span>Popular cities</span></div>
+          <div class="popular-city-grid">
+            <button class="city-card coming-soon" type="button" data-city="Delhi" disabled><span class="city-icon">DL</span><strong>Delhi</strong><small>Coming soon</small></button>
+            <button class="city-card coming-soon" type="button" data-city="Hyderabad" disabled><span class="city-icon">HY</span><strong>Hyderabad</strong><small>Coming soon</small></button>
+            <button class="city-card coming-soon" type="button" data-city="Mumbai" disabled><span class="city-icon">MU</span><strong>Mumbai</strong><small>Coming soon</small></button>
+            <button class="city-card coming-soon" type="button" data-city="Pune" disabled><span class="city-icon">PU</span><strong>Pune</strong><small>Coming soon</small></button>
+            <button class="city-card coming-soon" type="button" data-city="Chennai" disabled><span class="city-icon">CH</span><strong>Chennai</strong><small>Coming soon</small></button>
+            <button class="city-card selected" type="button" data-city="Bengaluru" aria-pressed="true"><span class="city-icon">BLR</span><strong>Bengaluru</strong><small>Available now</small></button>
+          </div>
+        </div>
+
+        <div class="location-group other-location-group">
+          <div class="location-divider"><span>Other cities</span></div>
+          <div class="other-city-grid">
+            <button type="button" disabled><span>Faridabad</span><small>Coming soon</small></button>
+            <button type="button" disabled><span>Kolkata</span><small>Coming soon</small></button>
+            <button type="button" disabled><span>Gurugram</span><small>Coming soon</small></button>
+            <button type="button" disabled><span>Noida</span><small>Coming soon</small></button>
+            <button type="button" disabled><span>Ghaziabad</span><small>Coming soon</small></button>
+          </div>
+        </div>
+
+        <div class="location-picker-foot">
+          <span class="location-availability-dot"></span>
+          <p><strong>Bengaluru is live.</strong> Delivery and setup are currently available across Bengaluru.</p>
+        </div>
+      </section>
+    </div>
 
     <section class="trust-strip">
       <div class="container trust-row">
