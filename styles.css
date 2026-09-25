@@ -871,3 +871,6 @@ body.cart-open .quick-contact,body.checkout-open .quick-contact,body.location-pi
  body:has(.sticky-cart.show) .quick-contact{bottom:calc(98px + env(safe-area-inset-bottom))}
 }
 @media(prefers-reduced-motion:reduce){.quick-contact-button,.contact-tooltip{transition:none}}
+
+/* Original supplied WhatsApp logo, with its transparency and proportions preserved. */
+.quick-contact-button .whatsapp-logo{width:44px;height:34px;max-width:none;object-fit:contain;display:block}
