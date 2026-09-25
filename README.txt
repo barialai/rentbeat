@@ -48,3 +48,6 @@ CALLBACK AND CONTACT UPDATE
 - Contact destinations use WHATSAPP_NUMBER in script.js (currently 971544685090).
 - Upload every file in this folder together, preserving these filenames.
 - No backend callback storage or automated calling is included.
+
+ACTUAL PRODUCT CATALOGUE
+14 supplied product photos and names replace sample catalogue products. Product specifications and prices remain pending. Cart items with pending prices request a quote and do not offer payment. All assets/products files must be uploaded with the site. The final green CTA now has equal top and bottom section padding.

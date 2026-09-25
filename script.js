@@ -5,7 +5,7 @@ const SOUNDIFY_CONFIG = {
   RAZORPAY_PAYMENT_LINK: 'https://rzp.io/l/REPLACE_ME'
 };
 
-const CART_STORAGE_KEY = 'soundify_rental_cart_v2';
+const CART_STORAGE_KEY = 'soundify_rental_cart_v3';
 const body = document.body;
 const menuToggle = document.querySelector('.menu-toggle');
 const mobileMenu = document.querySelector('.mobile-menu');
@@ -47,6 +47,7 @@ let lastFocusedElement = null;
 const cart = new Map();
 
 function money(value) {
+  if (value === null) return 'Price on request';
   return new Intl.NumberFormat('en-IN', {
     style: 'currency',
     currency: 'INR',
@@ -210,10 +211,10 @@ function loadCart() {
     const saved = JSON.parse(localStorage.getItem(CART_STORAGE_KEY) || '[]');
     if (!Array.isArray(saved)) return;
     saved.forEach(item => {
-      if (item?.name && Number(item.price) > 0 && Number(item.qty) > 0) {
+      if (item?.name && (item.price === null || Number(item.price) > 0) && Number(item.qty) > 0) {
         cart.set(item.name, {
           name: item.name,
-          price: Number(item.price),
+          price: item.price === null ? null : Number(item.price),
           qty: Number(item.qty)
         });
       }
@@ -235,7 +236,12 @@ function cartCount() {
   return [...cart.values()].reduce((sum, item) => sum + item.qty, 0);
 }
 
+function hasQuoteItems() {
+  return [...cart.values()].some(item => item.price === null);
+}
+
 function baseCartTotal() {
+  if (hasQuoteItems()) return null;
   return [...cart.values()].reduce((sum, item) => sum + item.price * item.qty, 0);
 }
 
@@ -244,7 +250,7 @@ function rentalDays() {
 }
 
 function payableTotal() {
-  return baseCartTotal() * rentalDays();
+  return hasQuoteItems() ? null : baseCartTotal() * rentalDays();
 }
 
 function focusableInside(element) {
@@ -316,8 +322,8 @@ function closeCheckout() {
 function addProduct(card) {
   if (!card) return;
   const name = card.dataset.product;
-  const price = Number(card.dataset.price);
-  if (!name || !price) return;
+  const price = card.dataset.quote === 'true' ? null : Number(card.dataset.price);
+  if (!name || (price !== null && !(price > 0))) return;
 
   const existing = cart.get(name);
   if (existing) existing.qty += 1;
@@ -384,7 +390,7 @@ function renderCart() {
             <span>${item.qty}</span>
             <button type="button" data-cart-action="plus" data-name="${encodeURIComponent(item.name)}" aria-label="Increase quantity">+</button>
           </div>
-          <strong class="cart-line-price">${money(item.price * item.qty)}</strong>
+          <strong class="cart-line-price">${money(item.price === null ? null : item.price * item.qty)}</strong>
           <button type="button" class="remove-line" data-cart-action="remove" data-name="${encodeURIComponent(item.name)}" aria-label="Remove ${escapeHtml(item.name)}">×</button>
         </div>`).join('');
     }
@@ -400,6 +406,10 @@ function renderCart() {
 }
 
 function renderCheckout() {
+  const quotePending = hasQuoteItems();
+  checkoutModal?.classList.toggle('quote-pending', quotePending);
+  const quoteNote = document.querySelector('.quote-checkout-note');
+  if (quoteNote) quoteNote.hidden = !quotePending;
   const count = cartCount();
   const days = rentalDays();
   const total = payableTotal();
@@ -412,7 +422,7 @@ function renderCheckout() {
         <strong>${escapeHtml(item.name)}</strong>
         <small>${item.qty} × ${money(item.price)} × ${days} ${days === 1 ? 'day' : 'days'}</small>
       </div>
-      <strong>${money(item.qty * item.price * days)}</strong>
+      <strong>${money(item.price === null ? null : item.qty * item.price * days)}</strong>
     </div>`).join('');
 
   const summaryCount = document.querySelector('#summaryCount');
@@ -429,12 +439,19 @@ function renderCheckout() {
 }
 
 function getUpiUri() {
+  if (hasQuoteItems()) return '#';
   const amount = payableTotal().toFixed(2);
   const note = encodeURIComponent('Soundify equipment rental');
   return `upi://pay?pa=${encodeURIComponent(SOUNDIFY_CONFIG.UPI_ID)}&pn=${encodeURIComponent('Soundify')}&am=${amount}&cu=INR&tn=${note}`;
 }
 
 function renderUpiPayment() {
+  if (hasQuoteItems()) {
+    document.querySelector('#upiPayLink')?.setAttribute('href', '#');
+    const qr = document.querySelector('#upiQr');
+    if (qr) qr.innerHTML = '';
+    return;
+  }
   const upiLink = document.querySelector('#upiPayLink');
   const qrBox = document.querySelector('#upiQr');
   if (upiLink) upiLink.href = getUpiUri();
@@ -454,16 +471,17 @@ function renderUpiPayment() {
 }
 
 function selectedPaymentMethod() {
+  if (hasQuoteItems()) return 'To be confirmed after quotation';
   return customerForm?.querySelector('input[name="payment"]:checked')?.value || 'UPI / Google Pay';
 }
 
 function createWhatsAppMessage(data) {
   const days = rentalDays();
   const items = [...cart.values()].map((item, index) =>
-    `${index + 1}. ${item.name}\n   Qty: ${item.qty} | ${money(item.price)}/day | ${days} ${days === 1 ? 'day' : 'days'} | ${money(item.price * item.qty * days)}`
+    `${index + 1}. ${item.name}\n   Qty: ${item.qty} | ${money(item.price)}/day | ${days} ${days === 1 ? 'day' : 'days'} | ${money(item.price === null ? null : item.price * item.qty * days)}`
   ).join('\n');
   const bookingId = `SF-${Date.now().toString().slice(-6)}`;
-  const paymentDone = document.querySelector('#paymentCompleted')?.checked
+  const paymentDone = hasQuoteItems() ? 'Awaiting quotation — no payment requested' : document.querySelector('#paymentCompleted')?.checked
     ? 'Customer marked as PAID – please verify'
     : 'Payment pending';
   const pageLocation = document.querySelector('#locationInput')?.value.trim() || 'Bengaluru';
@@ -511,7 +529,7 @@ function initializeFiltersFromUrl() {
   if (!document.querySelector('#productGrid')) return;
   const url = new URL(window.location.href);
   const category = url.searchParams.get('category');
-  const valid = ['speakers', 'microphones', 'dj', 'mixers', 'accessories'];
+  const valid = ['speakers', 'microphones', 'dj', 'mixers', 'lighting', 'staging', 'effects'];
   if (valid.includes(category)) setCategoryFilter(category);
   else setCategoryFilter('all');
 }
@@ -693,6 +711,7 @@ document.querySelectorAll('input[name="payment"]').forEach(radio => {
 });
 
 document.querySelector('#razorpayPay')?.addEventListener('click', () => {
+  if (hasQuoteItems()) return;
   if (!SOUNDIFY_CONFIG.RAZORPAY_PAYMENT_LINK || SOUNDIFY_CONFIG.RAZORPAY_PAYMENT_LINK.includes('REPLACE_ME')) {
     showToast('Add your Razorpay payment link in script.js first.');
     return;

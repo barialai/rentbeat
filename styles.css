@@ -874,3 +874,16 @@ body.cart-open .quick-contact,body.checkout-open .quick-contact,body.location-pi
 
 /* Original supplied WhatsApp logo, with its transparency and proportions preserved. */
 .quick-contact-button .whatsapp-logo{width:44px;height:34px;max-width:none;object-fit:contain;display:block}
+
+/* Balanced CTA spacing and actual product photography. */
+.final-cta-section{padding:110px 0}
+.product-media.media-product-white{background:#fff;padding:24px}
+.product-media .actual-product-photo{width:100%;height:100%;max-height:270px;object-fit:contain;filter:none;mix-blend-mode:normal}
+.product-bottom .quote-price{font-size:14px;line-height:1.35}
+.product-card .product-info{display:flex;flex-direction:column;flex:1}
+.product-card{display:flex;flex-direction:column}
+.product-card .product-bottom{margin-top:auto}
+.quote-checkout-note{padding:16px;border-radius:12px;background:#f0ffc2;color:#37451c;font-size:13px;line-height:1.6}
+.quote-pending .payment-title,.quote-pending .payment-options,.quote-pending .payment-panel,.quote-pending .check-row{display:none!important}
+.quote-pending .summary-total strong,.cart-line-price{font-size:14px}
+@media(max-width:760px){.final-cta-section{padding:64px 0}.product-media.media-product-white{padding:18px}}
