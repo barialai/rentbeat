@@ -736,3 +736,24 @@ loadCart();
 renderCart();
 initializeFiltersFromUrl();
 initializeReveal();
+
+
+// Contact shortcuts and callback requests use the same configured destination.
+const contactNumber = SOUNDIFY_CONFIG.WHATSAPP_NUMBER.replace(/\D/g, '');
+document.querySelectorAll('[data-contact-call]').forEach(link => {
+  link.href = `tel:+${contactNumber}`;
+});
+document.querySelectorAll('[data-contact-whatsapp]').forEach(link => {
+  link.href = `https://wa.me/${contactNumber}?text=${encodeURIComponent('Hi Soundify, I would like help with equipment rental for my event.')}`;
+});
+const callbackForm = document.querySelector('#callbackForm');
+const callbackPhone = document.querySelector('#callbackPhone');
+callbackPhone?.addEventListener('input', () => callbackPhone.setCustomValidity(''));
+callbackForm?.addEventListener('submit', event => {
+  event.preventDefault();
+  const phone = callbackPhone.value.replace(/[\s()-]/g, '');
+  callbackPhone.setCustomValidity(/^[6-9]\d{9}$/.test(phone) ? '' : 'Please enter a valid 10-digit Indian mobile number.');
+  if (!callbackForm.reportValidity()) return;
+  const message = `Hi Soundify, I would like to request a callback.\n\nMy mobile number: +91 ${phone}\nPlease call me to discuss sound equipment for my event in Bengaluru.`;
+  window.open(`https://wa.me/${contactNumber}?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
+});
